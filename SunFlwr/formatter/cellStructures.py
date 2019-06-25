@@ -3,90 +3,75 @@ module cell structures this modules is made for  creating more complex
 cells strucures in an excel sheet.
 the following strucures can be created:
     - label with value.
-    - label columns
-    - picture frames
+    - picture with and without frames
     - section titles
+    - tables
 '''
-from cellMaker import addCell
-from openpyxl.worksheet.table import Table, TableStyleInfo
-from openpyxl.drawing.image import Image
+from cellMaker import add_cell, add_image
+# from openpyxl.worksheet.table import Table, TableStyleInfo
+# from openpyxl.drawing.image import Image
 
 
-
-def makeLabeledField(ws,label, value):
-    for cell in (label,value):
-        print(cell['text'])
-        addCell(ws,
-                cell['posx'],cell['posy'],
-                cell['text'],
-                cell['dimx'],cell['dimy'])
-
-def makeTable(ws,columns,data,x ,y ,padding=0):
-    '''
-    # TODO: still need to check if making tables does work.
-    '''
-    for i, col in enumerate(columns):
-        # add the column wiht optional padding.
-        cell = createCell(x+(i*padding), y, col, dx=padding)
-        print(cell)
-        addCell(ws,
-                cell['posx'], cell['posy'],
-                cell['text'],
-                cell['dimx'], cell['dimy'])
+def make_table(ws, columns, data, x, y, padding=0):
+    make_row(ws, columns, x, y, padding)      # table titles
+    for i, row in enumerate(data):            # table contents
+        make_row(ws, row, x, y+i, padding)  # incremeted for the title row.
 
 
-    for row in data:
-        for i, item in enumerate(row):
-            # add items for the table.
-            cell = createCell(x+(i*padding), y, item, dx=padding)
-            print(cell)
-            addCell(ws,
-                    cell['posx'], cell['posy'],
-                    cell['text'],
-                    cell['dimx'], cell['dimy'])
+def make_row(ws, items, x, y, padding=0):
+    '''Creates a row of evenly spaced items in a excel spreadsheet.'''
+    for i, item in enumerate(items):
+        cell = create_cell(x+(i+i*padding), y, item, dx=padding)
+        print("{0}: {1},{2}".format(cell['text'], cell['posx'], cell['posy']))
+        add_cell(ws,
+                 cell['posx'], cell['posy'],
+                 cell['text'],
+                 cell['dimx'], cell['dimy'])
 
 
-
-def maketitle(ws, title, y):
+def make_title(ws, title, y):
     '''
     create a cell that will merge a whole row to do a title.
     (i.e)|                                          Title|
     '''
-    cell = createCell(1, y, title, dx=17) #ord('R')- ord('A') =17
-    addCell(ws,
-            cell['posx'],cell['posy'],
-            cell['text'],
-            cell['dimx'],cell['dimy'])
+    cell = create_cell(1, y, title, dx=17)  # ord('R')- ord('A') =17
+    add_cell(ws,
+             cell['posx'], cell['posy'],
+             cell['text'],
+             cell['dimx'], cell['dimy'])
 
-def makeLabeledField(ws,label, value):
+
+def make_labeled_field(ws, label, value):
     '''
     create two cells that following the Label and the value for the Label
     (i.e.) |LABEL: | value|
     '''
-    for cell in (label,value):
-        addCell(ws,
-                cell['posx'],cell['posy'],
-                cell['text'],
-                cell['dimx'],cell['dimy'])
+    for cell in (label, value):
+        add_cell(ws,
+                 cell['posx'], cell['posy'],
+                 cell['text'],
+                 cell['dimx'], cell['dimy'])
 
-def createCell(x, y, text, dx =0, dy=0):
+
+def create_cell(x, y, text, dx=0, dy=0):
+    '''formats cell data into a dictionary.'''
     return {'text': text,
-            'posx' : x,'posy' : y,
-            'dimx' : dx,'dimy' : dy}
+            'posx': x, 'posy': y,
+            'dimx': dx, 'dimy': dy}
+
 
 if __name__ == '__main__':
     from openpyxl import Workbook
-    wb= Workbook()
+    wb = Workbook()
     ws = wb.active
-    label = createCell(1,1,"label",dx=4)
-    value = createCell(2,2,"value", dy=0)
+    label = create_cell(1, 1, "label", dx=4)
+    value = create_cell(2, 2, "value", dy=0)
 
+    make_labeled_field(ws, label, value)
+    # testing titles
+    make_title(ws, "TITULO", 6)
 
-    makeLabeledField(ws,label,value)
-    #testing titles
-    maketitle(ws,"TITULO",6)
-
-    #testing tables
+    # testing tables
     data = [
         ['Apples', 10000, 5000, 8000, 6000],
         ['Pears',   2000, 3000, 4000, 5000],
@@ -96,6 +81,9 @@ if __name__ == '__main__':
 
     cols = ["Fruit", "2011", "2012", "2013", "2014"]
 
-    makeTable(ws,cols,data,2 ,7)
-    makeTable(ws,cols,data,14 ,15,padding = 3)
-    wb.save('sheets/structuresTest.xlsx')
+    make_table(ws, cols, data, 2, 7)
+    make_table(ws, cols, data, 14, 15, padding=2)
+    # for i, row in enumerate(data):
+    #    make_row(ws, row, 2, 15+i, padding=1)
+    # wb.save('tests/sheets/structuresTest.xlsx')
+    print('document test written')
