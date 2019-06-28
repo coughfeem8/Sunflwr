@@ -72,6 +72,8 @@ the evaluation consists of an excel document in which the arhictect will include
     - [ ] If The data requires a type of look up it shall be done after submition.
     - [ ]The gui shall have a final evalation view  before sending generating the excel document.
     - [ ] after section any of the sections is  finished the program shall store the data
+    - [ ] secitons shall contain preselected options for easier form fillin
+    - [ ] pre selected sections shall be stored in presets made by the user
 *** implementation [/]
     - View Controller Model system.
     - [[http://usingpython.com/making-widgets-look-nice/][gui look and feel set up.]]
