@@ -43,6 +43,6 @@ class ServiviosPublicos(ttk.Frame):
         list_mid = CheckboxList(checkbox_frame, self.items2)
         list_right = CheckboxList(checkbox_frame, self.items3)
 
-        list_left.grid(column=, row=2)
+        list_left.grid(column=0, row=2)
         list_mid.grid(column=1, row=2)
         list_right.grid(column=2, row=2)

@@ -1,22 +1,21 @@
 from tkinter import ttk
 import tkinter as tk
-
-# import navigationframes as nav
+import navigationframes as nav
 
 
 class NewEvaluation(ttk.Frame):
 
     def __init__(self, parent, controller=None):
-        ttk.Frame.__init__(self, parent)
+        super(NewEvaluation, self).__init__(parent)
 
         # FRAMES
         house_info = ttk.Frame(parent)
         fachada_frame = ttk.Frame(parent)
-        advance_menu_frame = ttk.Frame(parent)
+        nav_menu_frame = ttk.Frame(parent)
 
-        house_info.grid(column=0, row=0)
-        fachada_frame.grid(column=0, row=1)
-        advance_menu_frame.grid(row=2, column=1, columnspan=2)
+        house_info.grid(row=0, column=0)
+        fachada_frame.grid(row=1, column=0)
+        nav_menu_frame.grid(row=2, column=0, columnspan=2)
 
         # house info frame
         solicitante_label = ttk.Label(master=house_info, text='Solicitate:')
@@ -59,8 +58,8 @@ class NewEvaluation(ttk.Frame):
         no_of_files.grid(column=2, row=1)
 
         # nav frame
-        # nav_menu_frame = nav.NavegationMenu(advance_menu_frame)
-        # nav_menu_frame.grid()
+        nav_menu_frame = nav.NavigationMenu(nav_menu_frame)
+        nav_menu_frame.grid()
 
 
 '''
