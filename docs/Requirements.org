@@ -82,3 +82,7 @@ the evaluation consists of an excel document in which the arhictect will include
         - [[https://www.colourlovers.com/palette/2429932/%E2%80%A2No_Fears%E2%80%A2][No fears]]
         - [[https://www.colourlovers.com/palette/2413121/Twelve_Sunflowers][Twelve sunflowers]]
         - [[https://www.colourlovers.com/palette/2328144/Sunflower][Sunflower]]
+
+    - the frames shall countain all the componnets needed to work. The main
+      the main frame would create only the menu bar and the status bar the
+      rest is handled by the specialized frames.
