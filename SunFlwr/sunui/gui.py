@@ -3,8 +3,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 from winframes import frameassets as fa
-from winframes import startwindow as sw
-from winframes import navigationframes as navf
+from winframes import navigationframes as nav
 
 
 class SunFlwrGUI(tk.Tk):
@@ -49,11 +48,10 @@ class SunFlwrGUI(tk.Tk):
             # the one on the top of the stacking order
             # will be the one that is visible.
 
-        self.frames['StartWindow'] = sw.StartWindow(self, self)
         # FRAMES
         self.menu_bar = fa.MenuBar(self)
         self.status_bar = fa.StatusBar(self, self)
-        self.navigation_frame = navf.StartWindowMenu(self, self)
+        self.navigation_frame = nav.StartWindowMenu(self, self)
 
         # layout
         self.contents = self.logo_label

@@ -1,72 +1,83 @@
 from tkinter import ttk
 import tkinter as tk
-import navigationframes as nav
+from navigationframes import NavigationMenu
+from frameassets import LabeledEntryList
 
 
 class NewEvaluation(ttk.Frame):
 
-    def __init__(self, parent, controller=None):
-        super(NewEvaluation, self).__init__(parent)
+    def __init__(self, master, controller=None):
+        super(NewEvaluation, self).__init__(master)
+
+        self.master = master
+        self.controller = controller
+
+        house_info = ['Solicitate Del Avalúo: ', 'Propetario del Inmueble: ',
+                      'Ubicación:']
+        photos_labels = ['Fachada:', 'Fotos:']
 
         # FRAMES
-        house_info = ttk.Frame(parent)
-        fachada_frame = ttk.Frame(parent)
-        nav_menu_frame = ttk.Frame(parent)
+        house = LabeledEntryList(self, house_info, width=15)
+        validate_button = ttk.Button(self, text="Validar",
+                                     command=lambda: print('validando direccion'))
+        photos = LabeledEntryList(self, photos_labels, width=15)
+        facade_button = ttk.Button(self, text='...', width=3,
+                                   command=lambda: print('choose facade'))
+        photos_button = ttk.Button(self, text='...', width=3,
+                                   command=lambda: print('select pictures'))
+        nav_menu = NavigationMenu(self, controller)
 
-        house_info.grid(row=0, column=0)
-        fachada_frame.grid(row=1, column=0)
-        nav_menu_frame.grid(row=2, column=0, columnspan=2)
+        # Layout
+        house.grid(row=0, column=1, columnspan=2, rowspan=3)
+        photos.grid(row=3, column=1, columnspan=2, rowspan=2, sticky='e')
 
-        # house info frame
-        solicitante_label = ttk.Label(master=house_info, text='Solicitate:')
-        solicitante_entry = ttk.Entry(master=house_info)
+        validate_button.grid(row=2, column=3, columnspan=1, rowspan=1)
+        facade_button.grid(row=3, column=3, columnspan=1, rowspan=1)
+        photos_button.grid(row=4, column=3, columnspan=1, rowspan=1)
+        nav_menu.grid(row=5, column=2, columnspan=3, rowspan=1)
 
-        propietario_label = ttk.Label(master=house_info, text='Propietario:')
-        propietario_entry = ttk.Entry(master=house_info)
+        # spacing
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
-        ubicacion_label = ttk.Label(master=house_info, text='Ubicacion:')
-        ubicacion_entry = ttk.Entry(master=house_info)
-
-        find_button = ttk.Button(master=house_info, text='Validar')
-
-        solicitante_entry.grid(column=1, row=0)
-        solicitante_label.grid(column=0, row=0)
-        propietario_label.grid(column=0, row=1)
-        propietario_entry.grid(column=1, row=1)
-        ubicacion_label.grid(column=0, row=2)
-        ubicacion_entry.grid(column=1, row=2)
-        find_button.grid(column=2, row=2)
-
-        # images Frame
-        self.file_count = tk.StringVar(value='')
-        no_of_files = ttk.Label(master=fachada_frame,
-                                text=self.file_count.get())
-        fachada_label = ttk.Label(master=fachada_frame,
-                                  text='Fachada:')
-        fachada_button = ttk.Button(master=fachada_frame,
-                                    text='...')
-
-        fotos_label = ttk.Label(
-            master=fachada_frame, text='Otras Fotos:')
-        fotos_button = ttk.Button(master=fachada_frame,
-                                  text='...')
-
-        fachada_label.grid(column=0, row=0)
-        fachada_button.grid(column=1, row=0)
-        fotos_label.grid(column=0, row=1)
-        fotos_button.grid(column=1, row=1)
-        no_of_files.grid(column=2, row=1)
-
-        # nav frame
-        nav_menu_frame = nav.NavigationMenu(nav_menu_frame)
-        nav_menu_frame.grid()
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
 
-'''
-    def fachada_file_picker(self):
-        selected_file = tk.filedialog.askopenfilename()
+if __name__ == "__main__":
+    root = tk.Tk()
+    ws = root.winfo_screenwidth()  # width of the screen
+    hs = root.winfo_screenheight()  # height of the screen
+    w = (ws/5)*3  # 60%
+    h = (hs/5)*3  # 60%
+    root.geometry('%dx%d+%d+%d' %
+                  (w, h,  (ws/2) - (w/2),  (hs/2) - (h/2) - 100))
+    root.resizable(False, False)
 
-    def extraphotos_file_picker(self):
-        selected_files = tk.filedialog.askopenfilenames(parent=self)
-        self.file_count.set('{} files(s)'.format(len(selected_files)))
+    frame = NewEvaluation(root)
+    frame2 = ttk.Frame(root)
+
+    frame.pack(expand=True)
+    root.mainloop()
+
+'''Layout :
+----------------------------------------------------------
+|                                                        |
+|        Solicitante: [__persona___]                     |
+|                                                        |
+|        Propietario: [__persona___]                     |
+|                                                        |
+|        Ubication:   [_321 Street.Dr_]  [validar]       |
+|                                                        |
+|                                                        |
+|        Fachada [fachada.jpeg]         [...]            |
+|                                                        |
+|        Fotos: [foto.jpeg,foto2.jpeg]  [...]            |
+|                                                        |
+|                            [save]    [back]  [foward]  |
+----------------------------------------------------------
 '''
