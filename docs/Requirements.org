@@ -1,23 +1,23 @@
 * idea what i need to do:
 
-The architect requres to make evaluations for houses but it seeems it takes
-alot of time to do so. from checking tables and searching on maps for data, the
+The architect requires to make evaluations for houses but it seems it takes
+a lot of time to do so. from checking tables and searching on maps for data, the
 process of creating these evaluations could be sped up by automation.
 
-the evaluation consists of an excel document in which the arhictect will include
+the evaluation consists of an excel document in which the architect will include
 
 **** TODO actually do name the things properly
 
 **** TODO learn how to use sql in python and make it easier for me to dump the databases
 
 
-** create and store a database of a value table for Cuidad juarez
+** create and store a database of a value table for Cuidad Juarez
 *** requirements
   This database will include: [/]
     - [ ] sectors
     - [ ] zip codes
     - [ ] blocks
-    - [ ] age/concervation tables
+    - [ ] age/conservation tables
     - [ ] prizes of areas per street
     - [ ] prizes of areas per block
     - [ ] TODO add more definitions for the tables
@@ -26,14 +26,13 @@ the evaluation consists of an excel document in which the arhictect will include
     - sectors may cover al lest one colonies.
     - sectors may cover at least one zip code.
     - colonies may cover at least one sectors.
-    - colonies may cover at least one zipcode.
-    - zipcodes may cover at least one sector.
+    - colonies may cover at least one zip code.
+    - zip codes may cover at least one sector.
     - zip codes may cover at least one colony.
-    - more than one colony may have the same zipcode.
+    - more than one colony may have the same zip code.
 
 *** implementation ideas
-    im using sqlite3 simply because is a local project.
-    pray to jesus chirst for help
+    im using SQLite3 simply because is a local project.
 
 ** create a script that creates evaluation excel sheets automatically
 *** requirements [0/12]
@@ -44,7 +43,7 @@ the evaluation consists of an excel document in which the arhictect will include
   - [ ] The sections shall have a title.
   - [ ] The sections shall have contents.
   - [ ] The content shall be defined as a cells with either titles or  values.
-  - [ ] the values of cell shall be either be a predertemined value or a custom description or number.
+  - [ ] the values of cell shall be either be a predetermined value or a custom description or number.
   - [ ] Sections shall be able to be stylized as a whole
   - [ ] Styles shall be kept decoupled from cells for reusability
   - [ ] Styles shall be kept decoupled from sections for reusability
@@ -52,27 +51,27 @@ the evaluation consists of an excel document in which the arhictect will include
   - [ ] Cells shall be able to have different Fonts.
   - [ ] Cells shall be able to have different Colors.
   - [ ] Cells shall be able to have different Accents.
-  - [ ] Cells shall be to have different Allignment.
+  - [ ] Cells shall be to have different Alignment.
   - [ ] Cells shall be to have different Borders.
 
 *** implementation [0/2]
   - The sections shall be stored in a custom file format.
-  - The file format contains the informations of the sections.
+  - The file format contains the information of the sections.
   - A section believes the only thing in the excel sheet is them.
   - Sections may me be feed in json format after being processed.(or maybe the section is defined in json and just send it hard to the formatter)
-  - Processing reffers to tell the formatter the actual position in the. excel sheet.
+  - Processing refers to tell the formatter the actual position in the. excel sheet.
   - At the beginning the sections are based from a relative origin which is based from the y axis.
   - as the sections get created the absolute hight gets added to their relative height.
-  - sections may describe the titles and the list of permited values in their descriptions
+  - sections may describe the titles and the list of allowed values in their descriptions
 
 
-** Create a Gui that fills the data requred for the excel evaluations
+** Create a Gui that fills the data required for the excel evaluations
 *** requirements [0/1]
     - [ ] The gui shall shall a form-like interaction per section
-    - [ ] If The data requires a type of look up it shall be done after submition.
-    - [ ]The gui shall have a final evalation view  before sending generating the excel document.
+    - [ ] If The data requires a type of look up it shall be done after submission.
+    - [ ]The gui shall have a final evaluation view  before sending generating the excel document.
     - [ ] after section any of the sections is  finished the program shall store the data
-    - [ ] secitons shall contain preselected options for easier form fillin
+    - [ ] sections shall contain preselected options for easier form filling
     - [ ] pre selected sections shall be stored in presets made by the user
 *** implementation [/]
     - View Controller Model system.
@@ -83,6 +82,6 @@ the evaluation consists of an excel document in which the arhictect will include
         - [[https://www.colourlovers.com/palette/2413121/Twelve_Sunflowers][Twelve sunflowers]]
         - [[https://www.colourlovers.com/palette/2328144/Sunflower][Sunflower]]
 
-    - the frames shall countain all the componnets needed to work. The main
+    - the frames shall contain all the components needed to work. The main
       the main frame would create only the menu bar and the status bar the
       rest is handled by the specialized frames.
